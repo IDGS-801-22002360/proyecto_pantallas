@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Clientes Registrados</title>
+    <link rel="stylesheet" href="styles.css"><!-- Asegúrate de tener tu CSS general aquí -->
+</head>
+<body>
+    <main class="main-container"><!-- Usa aquí tu clase general para el contenedor principal -->
+        <h1 class="titulo-pagina">Lista de Clientes</h1>
+        <div class="tabla-contenedor"><!-- NUEVA: tabla-contenedor -->
+            <table class="tabla-clientes"><!-- NUEVA: tabla-clientes -->
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Apellido Paterno</th>
+                        <th>Apellido Materno</th>
+                        <th>Correo</th>
+                        <th>Teléfono</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="clientes-tbody">
+                    <!-- Se rellena por TypeScript -->
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <!-- Modal Detalles Cliente -->
+    <div id="modal-detalles" class="modal" style="display:none;"><!-- NUEVA: modal -->
+        <div class="modal-contenido"><!-- NUEVA: modal-contenido -->
+            <span id="cerrar-modal" class="cerrar-modal">&times;</span><!-- NUEVA: cerrar-modal -->
+            <h2>Detalles del Cliente</h2>
+            <div id="detalles-cliente">
+                <!-- Se rellena por TypeScript -->
+            </div>
+        </div>
+    </div>
+
+    <script src="clientes.js"></script>
+</body>
+</html>

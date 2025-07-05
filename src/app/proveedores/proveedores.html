@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>CRUD Proveedores</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <main class="main-container">
+        <h1 class="titulo-pagina">Proveedores</h1>
+        <button id="btn-agregar" class="btn-agregar">Agregar Proveedor</button><!-- NUEVA: btn-agregar -->
+        <div class="tabla-contenedor">
+            <table class="tabla-proveedores"><!-- NUEVA: tabla-proveedores -->
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Marca</th>
+                        <th>Fecha Entrega</th>
+                        <th>Fecha Caducidad</th>
+                        <th>Precio</th>
+                        <th>Total Compra</th>
+                        <th>Cantidad</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="proveedores-tbody">
+                    <!-- Se rellena por TS -->
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <!-- Modal Agregar/Editar Proveedor -->
+    <div id="modal-proveedor" class="modal" style="display:none;">
+        <div class="modal-contenido">
+            <span id="cerrar-modal" class="cerrar-modal">&times;</span>
+            <h2 id="modal-titulo">Agregar Proveedor</h2>
+            <form id="form-proveedor">
+                <label>Nombre: <input type="text" id="nombre" required></label>
+                <label>Marca: <input type="text" id="marca" required></label>
+                <label>Fecha Entrega: <input type="date" id="fechaEntrega" required></label>
+                <label>Fecha Caducidad: <input type="date" id="fechaCaducidad" required></label>
+                <label>Precio: <input type="number" id="precio" required></label>
+                <label>Total Compra: <input type="number" id="totalCompra" required></label>
+                <label>Cantidad: <input type="number" id="cantidad" required></label>
+                <button type="submit" class="btn-guardar">Guardar</button><!-- NUEVA: btn-guardar -->
+            </form>
+        </div>
+    </div>
+
+    <script src="proveedores.js"></script>
+</body>
+</html>
