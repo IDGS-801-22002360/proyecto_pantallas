@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gestión de Productos - Bits & Boards</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Montserrat:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <a href="#" class="logo"> Bits & Boards </a>
+        <nav>
+          <ul>
+            <li>
+              <a href="inicio" routerLinkActive="activo">Inicio</a>
+            </li>
+            <li>
+              <a href="empleados" routerLinkActive="activo">Empleados</a>
+            </li>
+            <li>
+              <a href="productos" routerLinkActive="activo">Productos</a>
+            </li>
+            <li><a href="clientes">Cliente</a></li>
+            <li><a href="pedidos">Pedidos</a></li>
+            <li><a href="proveedores">Proveedores</a></li>
+            <li><a href="compras">Compras</a></li>
+            <li><a href="dashboard">Dashboard</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="crud-section">
+        <div class="container">
+          <h2>Dashboard de Ventas</h2>
+
+          <!-- Sección de Tarjetas de Resumen -->
+          <div class="summary-cards">
+            <div
+              class="card"
+              *ngFor="let card of tarjetasResumen"
+              [style.border-left]="'4px solid ' + card.color"
+            >
+              <div class="card-icon" [style.color]="card.color">
+                <i [class]="card.icono"></i>
+              </div>
+              <div class="card-content">
+                <h3>{{ card.titulo }}</h3>
+                <p class="card-value" [style.color]="card.color">
+                  {{ card.valor }}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sección de Gráfico y Tabla -->
+          <div class="dashboard-grid">
+            <!-- Columna del Gráfico de Ventas Diarias (Simulado) -->
+            <div class="chart-container card">
+              <h3>Ventas por Día</h3>
+              <div class="chart-wrapper">
+                <div class="chart-bars">
+                  <div class="y-axis">
+                    <span>{{ maxVentas }}</span>
+                    <span>{{ maxVentas / 2 }}</span>
+                    <span>0</span>
+                  </div>
+                  <div class="bars">
+                    <div *ngFor="let item of ventasPorDia" class="bar-group">
+                      <div
+                        class="bar"
+                        [style.height]="getBarHeight(item.ventas)"
+                        [style.background-color]="'#007bff'"
+                      ></div>
+                      <span class="bar-label">{{ item.dia }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Columna de Productos Más Vendidos -->
+            <div class="card product-table-container">
+              <h3>Productos Más Vendidos</h3>
+              <div class="table-responsive">
+                <table class="product-table">
+                  <thead>
+                    <tr>
+                      <th>Producto</th>
+                      <th>Ventas</th>
+                      <th>Popularidad</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      *ngFor="
+                        let producto of productosMasVendidos;
+                        let i = index
+                      "
+                    >
+                      <td>{{ producto.nombre }}</td>
+                      <td>{{ producto.ventas }}</td>
+                      <td>
+                        <div class="progress-bar-container">
+                          <div
+                            class="progress-bar"
+                            [style.width]="producto.popularidad + '%'"
+                            [style.background-color]="getColorPorcentaje(i)"
+                          ></div>
+                          <span class="progress-label"
+                            >{{ producto.popularidad }}%</span
+                          >
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

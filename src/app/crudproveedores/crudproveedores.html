@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gestión de Compras - Bits & Boards</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Montserrat:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <a href="#" class="logo"> Bits & Boards </a>
+        <nav>
+          <ul>
+            <li>
+              <a href="inicio" routerLinkActive="activo">Inicio</a>
+            </li>
+            <li>
+              <a href="empleados" routerLinkActive="activo">Empleados</a>
+            </li>
+            <li>
+              <a href="productos" routerLinkActive="activo">Productos</a>
+            </li>
+            <li><a href="clientes">Cliente</a></li>
+            <li>
+              <a href="pedidos" routerLinkActive="activo">Pedidos</a>
+            </li>
+            <li><a href="proveedores">Proveedores</a></li>
+            <li>
+              <a href="compras" routerLinkActive="activo">Compras</a>
+            </li>
+            <li><a href="dashboard">Dashboard</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <!-- src/app/crudproveedores/crudproveedores.html -->
+    <main>
+      <section class="crud-section">
+        <div class="container">
+          <h2>Gestión de Proveedores</h2>
+
+          <!-- Formulario para Agregar/Editar Proveedor -->
+          <div class="form-container">
+            <h3>
+              {{ editando ? "Editar Proveedor" : "Agregar Nuevo Proveedor" }}
+            </h3>
+            <form (ngSubmit)="guardarProveedor()">
+              <input type="hidden" [(ngModel)]="proveedorActual.id" name="id" />
+
+              <div class="form-group">
+                <label for="nombreEmpresa">Nombre de la Empresa:</label>
+                <input
+                  type="text"
+                  id="nombreEmpresa"
+                  name="nombreEmpresa"
+                  [(ngModel)]="proveedorActual.nombreEmpresa"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="personaContacto">Persona de Contacto:</label>
+                <input
+                  type="text"
+                  id="personaContacto"
+                  name="personaContacto"
+                  [(ngModel)]="proveedorActual.personaContacto"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="email">Email:</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  [(ngModel)]="proveedorActual.email"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="telefono">Teléfono:</label>
+                <input
+                  type="tel"
+                  id="telefono"
+                  name="telefono"
+                  [(ngModel)]="proveedorActual.telefono"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="direccion">Dirección:</label>
+                <input
+                  type="text"
+                  id="direccion"
+                  name="direccion"
+                  [(ngModel)]="proveedorActual.direccion"
+                  required
+                />
+              </div>
+
+              <div class="form-actions">
+                <button type="submit" class="btn btn-primary">
+                  {{ editando ? "Actualizar" : "Guardar" }} Proveedor
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  *ngIf="editando"
+                  (click)="limpiarFormulario()"
+                >
+                  Cancelar Edición
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Tabla con la Lista de Proveedores -->
+          <h3>Lista de Proveedores</h3>
+          <div class="table-responsive">
+            <table class="employee-table" *ngIf="proveedores.length > 0">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Empresa</th>
+                  <th>Contacto</th>
+                  <th>Email</th>
+                  <th>Teléfono</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let proveedor of proveedores">
+                  <td>{{ proveedor.id }}</td>
+                  <td>{{ proveedor.nombreEmpresa }}</td>
+                  <td>{{ proveedor.personaContacto }}</td>
+                  <td>{{ proveedor.email }}</td>
+                  <td>{{ proveedor.telefono }}</td>
+                  <td class="actions">
+                    <button
+                      class="edit-btn"
+                      title="Editar"
+                      (click)="editarProveedor(proveedor)"
+                    >
+                      <i class="fas fa-edit"></i>
+                    </button>
+                    <button
+                      class="delete-btn"
+                      title="Eliminar"
+                      (click)="eliminarProveedor(proveedor.id)"
+                    >
+                      <i class="fas fa-trash-alt"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div
+            *ngIf="proveedores.length === 0"
+            style="text-align: center; padding: 20px; color: #586069"
+          >
+            <p>
+              No hay proveedores para mostrar. Agregue uno nuevo usando el
+              formulario.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

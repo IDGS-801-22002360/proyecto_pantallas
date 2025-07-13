@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bits & Boards</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Montserrat:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link rel="stylesheet" href="pantalla-principal.css" />
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <a href="#" class="logo"> Bits & Boards </a>
+        <nav>
+          <ul>
+            <li><link to="/" />Inicio</li>
+            <li><a href="empleados" routerLinkActive="activo">Empleados</a></li>
+            <li>
+              <a href="productos" routerLinkActive="activo">Productos</a>
+            </li>
+            <li><a href="clientes">Cliente</a></li>
+            <li><a href="pedidos">Pedidos</a></li>
+            <li><a href="proveedores">Proveedores</a></li>
+            <li><a href="compras">Compras</a></li>
+            <li><a href="dashboard">Dashboard</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <main>
+      <section class="hero">
+        <div class="container">
+          <h1>Despierta tu Ingenio Electrónico</h1>
+          <p>
+            Encuentra todo lo que necesitas para tus proyectos Arduino: desde
+            placas y sensores hasta kits completos.
+          </p>
+          <a href="#" class="btn">Explora Productos</a>
+        </div>
+      </section>
+
+      <section class="categories">
+        <div class="container">
+          <h2>Explora Nuestras Categorías</h2>
+          <div class="category-grid">
+            <div class="category-card">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/3/38/Arduino_Uno_-_R3.jpg"
+                alt="Arduino Boards"
+              />
+              <h3>Arduino Boards</h3>
+              <p>Variedad de placas Arduino para cada nivel y proyecto.</p>
+            </div>
+            <div class="category-card">
+              <img
+                src="https://images.unsplash.com/photo-1631376178637-392efc9e356b?q=80&w=1073&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                alt="Componentes"
+              />
+              <h3>Componentes</h3>
+              <p>Sensores, resistencias, LEDs, cables y mucho más.</p>
+            </div>
+            <div class="category-card">
+              <img
+                src="https://cdn.pixabay.com/photo/2020/11/08/13/10/semiconductor-5723697_1280.jpg"
+                alt="Kits"
+              />
+              <h3>Kits de Inicio</h3>
+              <p>
+                Kits completos para principiantes y expertos, listos para armar.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <hr />
+
+      <section class="featured-products">
+        <div class="container">
+          <h2>Nuestros Productos Destacados</h2>
+          <div class="product-grid">
+            <div class="product-card">
+              <img
+                src="https://m.media-amazon.com/images/I/71i5EorAMBL._AC_.jpg"
+                alt="Arduino Uno R3"
+              />
+              <div class="product-info">
+                <h3>Arduino Uno R3 Original</h3>
+                <p>
+                  La placa de desarrollo más popular, ideal para principiantes y
+                  proyectos.
+                </p>
+                <span class="product-price">$24.99</span>
+                <a href="#" class="btn">Agregar al Carrito</a>
+              </div>
+            </div>
+            <div class="product-card">
+              <img
+                src="https://tse3.mm.bing.net/th/id/OIP.uELFVC7jBeJ3pulv3wYMJAHaGV?r=0&rs=1&pid=ImgDetMain&o=7&rm=3"
+                alt="ESP32 Development Board"
+              />
+              <div class="product-info">
+                <h3>ESP32 Development Board</h3>
+                <p>
+                  Placa con Wi-Fi y Bluetooth integrados, perfecta para IoT.
+                </p>
+                <span class="product-price">$12.50</span>
+                <a href="#" class="btn">Agregar al Carrito</a>
+              </div>
+            </div>
+            <div class="product-card">
+              <img
+                src="https://tse3.mm.bing.net/th/id/OIP.kp2Efob2H_9sgD4B1LkdhwHaHa?r=0&rs=1&pid=ImgDetMain&o=7&rm=3"
+                alt="Kit de Inicio Arduino"
+              />
+              <div class="product-info">
+                <h3>Kit de Inicio Arduino Avanzado</h3>
+                <p>
+                  Incluye una gran variedad de componentes para proyectos
+                  complejos.
+                </p>
+                <span class="product-price">$59.99</span>
+                <a href="#" class="btn">Agregar al Carrito</a>
+              </div>
+            </div>
+            <div class="product-card">
+              <img
+                src="https://blog.mcu.com.mx/wp-content/uploads/2021/10/AR-KITSENSOR-600x381.jpg"
+                alt="Set de Sensores Variados"
+              />
+              <div class="product-info">
+                <h3>Pack de Sensores (20 Tipos)</h3>
+                <p>
+                  Colección esencial de sensores para experimentar con
+                  diferentes mediciones.
+                </p>
+                <span class="product-price">$19.99</span>
+                <a href="#" class="btn">Agregar al Carrito</a>
+              </div>
+            </div>
+            <div class="product-card">
+              <img
+                src="https://images.tcdn.com.br/img/img_prod/557243/modulo_rele_1_canal_5v_com_borne_1173_1_20200710150754.png"
+                alt="Módulo Relay 5V"
+              />
+              <div class="product-info">
+                <h3>Módulo Relay 5V 1 Canal</h3>
+                <p>
+                  Permite controlar dispositivos de alto voltaje con señales
+                  Arduino.
+                </p>
+                <span class="product-price">$2.99</span>
+                <a href="#" class="btn">Agregar al Carrito</a>
+              </div>
+            </div>
+            <div class="product-card">
+              <img
+                src="https://tse3.mm.bing.net/th/id/OIP.jOHqGwGux5G4yUAvcTMZBAHaEN?r=0&rs=1&pid=ImgDetMain&o=7&rm=3"
+                alt="Sensor Ultrasonico"
+              />
+              <div class="product-info">
+                <h3>Sensor Ultrasonico HC-SR04</h3>
+                <p>
+                  Medición de distancia por ultrasonido para proyectos de
+                  robótica.
+                </p>
+                <span class="product-price">$3.49</span>
+                <a href="#" class="btn">Agregar al Carrito</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container footer-content">
+        <div class="footer-section">
+          <h4>Navegación</h4>
+          <ul>
+            <li><a href="#">Inicio</a></li>
+            <li><a href="#">Tienda</a></li>
+            <li><a href="#">Productos</a></li>
+            <li><a href="#">Preguntas Frecuentes</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Soporte</h4>
+          <ul>
+            <li><a href="#">Contacto</a></li>
+            <li><a href="#">Términos de Servicio</a></li>
+            <li><a href="#">Política de Privacidad</a></li>
+            <li><a href="#">Devoluciones</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Síguenos</h4>
+          <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="container footer-bottom">
+        <p>&copy; 2025 Bits & Boards. Todos los derechos reservados.</p>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gestión de Pedidos - Bits & Boards</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Montserrat:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <a href="#" class="logo"> Bits & Boards </a>
+        <nav>
+          <ul>
+            <li>
+              <a href="inicio" routerLinkActive="activo">Inicio</a>
+            </li>
+            <li>
+              <a href="empleados" routerLinkActive="activo">Empleados</a>
+            </li>
+            <li>
+              <a href="productos" routerLinkActive="activo">Productos</a>
+            </li>
+            <li><a href="clientes">Cliente</a></li>
+            <li>
+              <a href="pedidos" routerLinkActive="activo">Pedidos</a>
+            </li>
+            <li><a href="proveedores">Proveedores</a></li>
+            <li><a href="compras">Compras</a></li>
+            <li><a href="dashboard">Dashboard</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="crud-section">
+        <div class="container">
+          <h2>Gestión de Pedidos a Proveedores</h2>
+
+          <div class="form-container">
+            <h3>Registrar/Editar Pedido</h3>
+            <form (ngSubmit)="guardarPedido()">
+              <input type="hidden" [(ngModel)]="pedidoActual.id" name="id" />
+
+              <div class="form-group">
+                <label for="productoNombre">Nombre del Producto:</label>
+                <input
+                  type="text"
+                  id="productoNombre"
+                  name="productoNombre"
+                  [(ngModel)]="pedidoActual.productoNombre"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="proveedor">Proveedor:</label>
+                <input
+                  type="text"
+                  id="proveedor"
+                  name="proveedor"
+                  [(ngModel)]="pedidoActual.proveedor"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="cantidad">Cantidad:</label>
+                <input
+                  type="number"
+                  id="cantidad"
+                  name="cantidad"
+                  [(ngModel)]="pedidoActual.cantidad"
+                  required
+                  min="1"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="fechaPedido">Fecha del Pedido:</label>
+                <input
+                  type="date"
+                  id="fechaPedido"
+                  name="fechaPedido"
+                  [(ngModel)]="pedidoActual.fechaPedido"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="estado">Estado:</label>
+                <select
+                  id="estado"
+                  name="estado"
+                  [(ngModel)]="pedidoActual.estado"
+                  required
+                >
+                  <option *ngFor="let estado of estadosPedido" [value]="estado">
+                    {{ estado }}
+                  </option>
+                </select>
+              </div>
+
+              <div class="form-actions">
+                <button type="submit" class="btn btn-primary">
+                  {{ editando ? "Actualizar" : "Guardar" }} Pedido
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  *ngIf="editando"
+                  (click)="limpiarFormulario()"
+                >
+                  Cancelar Edición
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <h3>Lista de Pedidos</h3>
+          <div class="table-responsive">
+            <table class="pedidos-table" *ngIf="pedidos.length > 0">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Producto</th>
+                  <th>Proveedor</th>
+                  <th>Cantidad</th>
+                  <th>Fecha Pedido</th>
+                  <th>Estado</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let pedido of pedidos">
+                  <td>{{ pedido.id }}</td>
+                  <td>{{ pedido.productoNombre }}</td>
+                  <td>{{ pedido.proveedor }}</td>
+                  <td>{{ pedido.cantidad }}</td>
+                  <td>{{ pedido.fechaPedido | date : "dd/MM/yyyy" }}</td>
+                  <td>
+                    <!-- Opcional: Añadir una clase de estilo según el estado -->
+                    <span
+                      class="status-badge"
+                      [ngClass]="'status-' + pedido.estado.toLowerCase()"
+                    >
+                      {{ pedido.estado }}
+                    </span>
+                  </td>
+                  <td class="actions">
+                    <button
+                      class="edit-btn"
+                      title="Editar"
+                      (click)="editarPedido(pedido)"
+                    >
+                      <i class="fas fa-edit"></i>
+                    </button>
+                    <button
+                      class="delete-btn"
+                      title="Eliminar"
+                      (click)="eliminarPedido(pedido.id)"
+                    >
+                      <i class="fas fa-trash-alt"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p
+            *ngIf="pedidos.length === 0"
+            style="text-align: center; margin-top: 20px"
+          >
+            No hay pedidos registrados.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <!-- El footer es idéntico a los otros componentes -->
+      <div class="container footer-content">
+        <div class="footer-section">
+          <h4>Navegación</h4>
+          <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="#">Tienda</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Preguntas Frecuentes</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Soporte</h4>
+          <ul>
+            <li><a href="#">Contacto</a></li>
+            <li><a href="#">Términos de Servicio</a></li>
+            <li><a href="#">Política de Privacidad</a></li>
+            <li><a href="#">Devoluciones</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Síguenos</h4>
+          <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a
+            ><a href="#"><i class="fab fa-twitter"></i></a
+            ><a href="#"><i class="fab fa-instagram"></i></a
+            ><a href="#"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="container footer-bottom">
+        <p>© 2025 Bits & Boards. Todos los derechos reservados.</p>
+      </div>
+    </footer>
+  </body>
+</html>

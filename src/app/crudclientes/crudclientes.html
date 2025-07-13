@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gestión de Compras - Bits & Boards</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Montserrat:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <a href="#" class="logo"> Bits & Boards </a>
+        <nav>
+          <ul>
+            <li>
+              <a href="inicio" routerLinkActive="activo">Inicio</a>
+            </li>
+            <li>
+              <a href="empleados" routerLinkActive="activo">Empleados</a>
+            </li>
+            <li>
+              <a href="productos" routerLinkActive="activo">Productos</a>
+            </li>
+            <li><a href="clientes">Cliente</a></li>
+            <li>
+              <a href="pedidos" routerLinkActive="activo">Pedidos</a>
+            </li>
+            <li><a href="proveedores">Proveedores</a></li>
+            <li>
+              <a href="compras" routerLinkActive="activo">Compras</a>
+            </li>
+            <li><a href="dashboard">Dashboard</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <main>
+      <section class="crud-section">
+        <div class="container">
+          <h2>Gestión de Clientes</h2>
+
+          <!-- Formulario para Agregar/Editar Cliente -->
+          <div class="form-container">
+            <h3>{{ editando ? "Editar Cliente" : "Agregar Nuevo Cliente" }}</h3>
+            <form (ngSubmit)="guardarCliente()">
+              <input type="hidden" [(ngModel)]="clienteActual.id" name="id" />
+
+              <div class="form-group">
+                <label for="nombre">Nombre Completo:</label>
+                <input
+                  type="text"
+                  id="nombre"
+                  name="nombre"
+                  [(ngModel)]="clienteActual.nombre"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="email">Email:</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  [(ngModel)]="clienteActual.email"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="telefono">Teléfono:</label>
+                <input
+                  type="tel"
+                  id="telefono"
+                  name="telefono"
+                  [(ngModel)]="clienteActual.telefono"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="direccion">Dirección:</label>
+                <input
+                  type="text"
+                  id="direccion"
+                  name="direccion"
+                  [(ngModel)]="clienteActual.direccion"
+                  required
+                />
+              </div>
+
+              <div class="form-actions">
+                <button type="submit" class="btn btn-primary">
+                  {{ editando ? "Actualizar" : "Guardar" }} Cliente
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  *ngIf="editando"
+                  (click)="limpiarFormulario()"
+                >
+                  Cancelar Edición
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Tabla con la Lista de Clientes -->
+          <h3>Lista de Clientes</h3>
+          <div class="table-responsive">
+            <table class="employee-table" *ngIf="clientes.length > 0">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Nombre</th>
+                  <th>Email</th>
+                  <th>Teléfono</th>
+                  <th>Dirección</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let cliente of clientes">
+                  <td>{{ cliente.id }}</td>
+                  <td>{{ cliente.nombre }}</td>
+                  <td>{{ cliente.email }}</td>
+                  <td>{{ cliente.telefono }}</td>
+                  <td>{{ cliente.direccion }}</td>
+                  <td class="actions">
+                    <button
+                      class="edit-btn"
+                      title="Editar"
+                      (click)="editarCliente(cliente)"
+                    >
+                      <i class="fas fa-edit"></i>
+                    </button>
+                    <button
+                      class="delete-btn"
+                      title="Eliminar"
+                      (click)="eliminarCliente(cliente.id)"
+                    >
+                      <i class="fas fa-trash-alt"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div
+            *ngIf="clientes.length === 0"
+            style="text-align: center; padding: 20px; color: #586069"
+          >
+            <p>
+              No hay clientes para mostrar. Agregue uno nuevo usando el
+              formulario.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
