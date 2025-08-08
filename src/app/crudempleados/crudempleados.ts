@@ -1,15 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { EmpleadosService } from './empleados';
+import { HttpClientModule } from '@angular/common/http';
+
 
 @Component({
     selector: 'app-crudempleados',
     standalone: true,
-    imports: [CommonModule, FormsModule],
+    imports: [CommonModule, FormsModule, HttpClientModule],
     templateUrl: './crudempleados.html',
     styleUrls: ['./crudempleados.css']
 })
-export class CRUDEmpleados {
+export class CRUDEmpleados implements OnInit {
     empleados: any[] = [];
     empleadoActual = {
         id: 0,
@@ -19,19 +22,33 @@ export class CRUDEmpleados {
         fechaContratacion: ''
     };
     editando: boolean = false;
-    private idCounter: number = 1;
+
+    constructor(private empleadosService: EmpleadosService) {}
+
+    ngOnInit() {
+        this.cargarEmpleados();
+    }
+
+    cargarEmpleados() {
+        this.empleadosService.getEmpleados().subscribe(data => {
+            this.empleados = data;
+        });
+    }
 
     guardarEmpleado() {
         if (this.editando) {
-            const index = this.empleados.findIndex(e => e.id === this.empleadoActual.id);
-            if (index !== -1) {
-                this.empleados[index] = { ...this.empleadoActual };
-            }
+            // Actualizar
+            this.empleadosService.updateEmpleado(this.empleadoActual.id, this.empleadoActual).subscribe(() => {
+                this.cargarEmpleados();
+                this.limpiarFormulario();
+            });
         } else {
-            this.empleadoActual.id = this.idCounter++;
-            this.empleados.push({ ...this.empleadoActual });
+            // Agregar
+            this.empleadosService.addEmpleado(this.empleadoActual).subscribe(() => {
+                this.cargarEmpleados();
+                this.limpiarFormulario();
+            });
         }
-        this.limpiarFormulario();
     }
 
     editarEmpleado(empleado: any) {
@@ -40,10 +57,12 @@ export class CRUDEmpleados {
     }
 
     eliminarEmpleado(id: number) {
-        this.empleados = this.empleados.filter(e => e.id !== id);
-        if (this.empleadoActual.id === id) {
-            this.limpiarFormulario();
-        }
+        this.empleadosService.deleteEmpleado(id).subscribe(() => {
+            this.cargarEmpleados();
+            if (this.empleadoActual.id === id) {
+                this.limpiarFormulario();
+            }
+        });
     }
 
     limpiarFormulario() {

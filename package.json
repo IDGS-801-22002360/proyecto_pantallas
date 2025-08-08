@@ -29,12 +29,13 @@
     "@angular/forms": "^20.0.0",
     "@angular/platform-browser": "^20.0.0",
     "@angular/router": "^20.0.0",
-    "rxjs": "~7.8.0",
-    "tslib": "^2.3.0",
-    "zone.js": "~0.15.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.3",
     "express": "^4.19.2",
     "mysql2": "^3.10.0",
-    "dotenv": "^16.4.3"
+    "rxjs": "~7.8.0",
+    "tslib": "^2.3.0",
+    "zone.js": "~0.15.0"
   },
   "devDependencies": {
     "@angular/build": "^20.0.5",
@@ -47,7 +48,7 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
-    "typescript": "~5.8.2",
-    "nodemon": "^3.1.0"
+    "nodemon": "^3.1.0",
+    "typescript": "~5.8.2"
   }
 }
