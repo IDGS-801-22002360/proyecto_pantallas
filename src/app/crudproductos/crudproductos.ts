@@ -1,15 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule, CurrencyPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
-export interface Producto {
-  id: number;
-  nombre: string;
-  descripcion: string;
-  precio: number;
-  stock: number;
-  imagenUrl: string; // Esta propiedad ahora guardará la URL web O la data Base64
-}
+import { ProductosService, Producto } from './productos';
 
 @Component({
   selector: 'app-crudproductos',
@@ -18,30 +10,16 @@ export interface Producto {
   templateUrl: './crudproductos.html',
   styleUrls: ['./crudproductos.css']
 })
-export class CrudproductosComponent {
-  productos: Producto[] = [
-    // Los datos de ejemplo con URLs externas seguirán funcionando
-    {
-      id: 1,
-      nombre: 'Arduino Uno R3 Original',
-      descripcion: 'La placa de desarrollo más popular...',
-      precio: 24.99,
-      stock: 150,
-      imagenUrl: 'https://m.media-amazon.com/images/I/71i5EorAMBL._AC_.jpg'
-    },
-    {
-      id: 2,
-      nombre: 'ESP32 Development Board',
-      descripcion: 'Placa con Wi-Fi y Bluetooth integrados...',
-      precio: 12.50,
-      stock: 80,
-      imagenUrl: 'https://tse3.mm.bing.net/th/id/OIP.uELFVC7jBeJ3pulv3wYMJAHaGV?r=0&rs=1&pid=ImgDetMain&o=7&rm=3'
-    }
-  ];
-
+export class CrudproductosComponent implements OnInit {
+  productos: Producto[] = [];
   productoActual: Producto = this.getProductoInicial();
   editando: boolean = false;
-  private idCounter: number = 3;
+
+  constructor(private productosService: ProductosService) {}
+
+  ngOnInit() {
+    this.cargarProductos();
+  }
 
   getProductoInicial(): Producto {
     return {
@@ -50,34 +28,39 @@ export class CrudproductosComponent {
       descripcion: '',
       precio: 0,
       stock: 0,
-      imagenUrl: '' // La URL de la imagen empieza vacía
+      imagenUrl: ''
     };
   }
 
-  // --- ¡NUEVO MÉTODO PARA MANEJAR LA CARGA DE ARCHIVOS! ---
   onFileSelected(event: any): void {
     const file: File = event.target.files[0];
     if (file) {
       const reader = new FileReader();
       reader.onload = () => {
-        // Convertimos la imagen a una cadena Base64 y la guardamos en nuestro objeto
         this.productoActual.imagenUrl = reader.result as string;
       };
       reader.readAsDataURL(file);
     }
   }
 
+  cargarProductos() {
+    this.productosService.getProductos().subscribe(data => {
+      this.productos = data;
+    });
+  }
+
   guardarProducto() {
     if (this.editando) {
-      const index = this.productos.findIndex(p => p.id === this.productoActual.id);
-      if (index !== -1) {
-        this.productos[index] = { ...this.productoActual };
-      }
+      this.productosService.updateProducto(this.productoActual.id, this.productoActual).subscribe(() => {
+        this.cargarProductos();
+        this.limpiarFormulario();
+      });
     } else {
-      this.productoActual.id = this.idCounter++;
-      this.productos.push({ ...this.productoActual });
+      this.productosService.addProducto(this.productoActual).subscribe(() => {
+        this.cargarProductos();
+        this.limpiarFormulario();
+      });
     }
-    this.limpiarFormulario();
   }
 
   editarProducto(producto: Producto) {
@@ -87,15 +70,16 @@ export class CrudproductosComponent {
   }
 
   eliminarProducto(id: number) {
-    this.productos = this.productos.filter(p => p.id !== id);
-    if (this.productoActual.id === id) {
-      this.limpiarFormulario();
-    }
+    this.productosService.deleteProducto(id).subscribe(() => {
+      this.cargarProductos();
+      if (this.productoActual.id === id) {
+        this.limpiarFormulario();
+      }
+    });
   }
 
   limpiarFormulario() {
     this.productoActual = this.getProductoInicial();
     this.editando = false;
-    // Opcional: limpiar el input del archivo si tienes una referencia a él
   }
 }
